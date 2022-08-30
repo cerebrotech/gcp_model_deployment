@@ -9,9 +9,8 @@ app = Flask(__name__)
 
 
 @app.route("/")
-def hello_world():
-    name = os.environ.get("NAME", "World")
-    return "Hello {}!".format(name)
+def healthz():
+    return "Healthy and ready"
 
 @app.route("/predict",methods=["POST"])
 def predict():
