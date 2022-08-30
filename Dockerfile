@@ -11,7 +11,7 @@ RUN pip install --upgrade pip
 ADD . /app
 COPY requirements_model.txt /app/requirements_model.txt
 WORKDIR /app
-RUN pip install -r requirements_apps.txt
+RUN pip install -r requirements_model.txt
 RUN apt-get update && apt-get upgrade -y
 USER 1000
 CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 model_api:app
