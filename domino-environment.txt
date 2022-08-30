@@ -1,0 +1,48 @@
+Base Env - Domino Standard DAD
+#Name - GCP_Model_Environment
+#Docker file
+```
+RUN sudo apt-get install apt-transport-https ca-certificates gnupg -y
+RUN sudo apt-get install apt-transport-https ca-certificates gnupg -y
+RUN sudo apt autoremove -y
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
+RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.cloud.google.com/apt cloud-sdk main" | sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list
+RUN sudo apt-get update && sudo apt-get install google-cloud-cli -y
+```
+
+#Pluggable Workspace Tools
+```
+jupyter:
+  title: "Jupyter (Python, R, Julia)"
+  iconUrl: "/assets/images/workspace-logos/Jupyter.svg"
+  start: [ "/opt/domino/workspaces/jupyter/start" ]
+  supportedFileExtensions: [ ".ipynb" ]
+  httpProxy:
+    port: 8888
+    rewrite: false
+    internalPath: "/{{ownerUsername}}/{{projectName}}/{{sessionPathComponent}}/{{runId}}/{{#if pathToOpen}}tree/{{pathToOpen}}{{/if}}"
+    requireSubdomain: false
+jupyterlab:
+  title: "JupyterLab"
+  iconUrl: "/assets/images/workspace-logos/jupyterlab.svg"
+  start: [  "/opt/domino/workspaces/jupyterlab/start" ]
+  httpProxy:
+    internalPath: "/{{ownerUsername}}/{{projectName}}/{{sessionPathComponent}}/{{runId}}/{{#if pathToOpen}}tree/{{pathToOpen}}{{/if}}"
+    port: 8888
+    rewrite: false
+    requireSubdomain: false
+vscode:
+  title: "vscode"
+  iconUrl: "/assets/images/workspace-logos/vscode.svg"
+  start: [ "/opt/domino/workspaces/vscode/start" ]
+  httpProxy:
+    port: 8888
+    requireSubdomain: false
+rstudio:
+  title: "RStudio"
+  iconUrl: "/assets/images/workspace-logos/Rstudio.svg"
+  start: [ "/opt/domino/workspaces/rstudio/start" ]
+  httpProxy:
+    port: 8888
+    requireSubdomain: false
+```
